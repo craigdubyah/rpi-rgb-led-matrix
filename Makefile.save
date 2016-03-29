@@ -9,7 +9,7 @@ RGB_INCDIR=include
 RGB_LIBDIR=lib
 RGB_LIBRARY_NAME=rgbmatrix
 RGB_LIBRARY=$(RGB_LIBDIR)/lib$(RGB_LIBRARY_NAME).a
-LDFLAGS+=-L$(RGB_LIBDIR) -l$(RGB_LIBRARY_NAME) -lrt -lm -lpthread -lncurses
+LDFLAGS+=-L$(RGB_LIBDIR) -l$(RGB_LIBRARY_NAME) -lrt -lm -lpthread
 
 PYTHON_LIB_DIR=python
 
@@ -21,6 +21,8 @@ all : $(BINARIES)
 
 $(RGB_LIBRARY): FORCE
 	$(MAKE) -C $(RGB_LIBDIR)
+
+ledinput : ledinput.o $(RGB_LIBRARY)
 
 led-matrix : demo-main.o $(RGB_LIBRARY)
 	$(CXX) $(CXXFLAGS) demo-main.o -o $@ $(LDFLAGS)
